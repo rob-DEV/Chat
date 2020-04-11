@@ -18,6 +18,7 @@
     <Compile Include="API.php" />
     <Compile Include="Constants.php" />
     <Compile Include="Database.php" />
+    <Compile Include="DatabaseConfig.php" />
     <Compile Include="index.php" />
   </ItemGroup>
 </Project>
