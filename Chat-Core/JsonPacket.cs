@@ -11,8 +11,7 @@ namespace Chat_Core
     public class JsonPacket
     {
         private string m_Type;
-        private Dictionary<string, string> m_Data;
-
+        public Dictionary<string, string> m_Data { get; private set; }
 
         public JsonPacket(string type)
         {
@@ -26,6 +25,14 @@ namespace Chat_Core
             m_Data = data;
         }
 
+        public JsonPacket(Dictionary<string, string> data)
+        {
+            if(data.ContainsKey("TYPE"))
+                m_Type = data["TYPE"];
+
+            m_Data = data;
+        }
+
         public void Add(KeyValuePair<string, string> element)
         {
             m_Data[element.Key] = element.Value;
@@ -34,9 +41,16 @@ namespace Chat_Core
 
         public string Serialize()
         {
-            m_Data["REQUEST_TYPE"] = m_Type;
+            if (!m_Data.ContainsKey("TYPE"))
+                m_Data["TYPE"] = m_Type;
 
             return JsonConvert.SerializeObject(m_Data);
+
+        }
+
+        public static JsonPacket Deserialize(string json)
+        {
+            return new JsonPacket(JsonConvert.DeserializeObject<Dictionary<string, string>>(json));
 
         }
 

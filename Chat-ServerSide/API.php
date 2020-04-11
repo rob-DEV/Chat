@@ -22,7 +22,7 @@ class API
 
         $this->database->insert('client', ['unique_id', 'token_hash', 'short_id'], [$uniqueID, hash('sha256', $token), $shortID]);
 
-        $responseArray = ['CLIENT_UNIQUE_ID' => $uniqueID, 'CLIENT_TOKEN' => $token, 'CLIENT_SHORT_ID' => $shortID];
+        $responseArray = ['TYPE' => RESPONSE_CLIENT_INDENTIFIER, 'CLIENT_UNIQUE_ID' => $uniqueID, 'CLIENT_TOKEN' => $token, 'CLIENT_SHORT_ID' => $shortID];
 
         return json_encode($responseArray);
         

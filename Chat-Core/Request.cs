@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Diagnostics;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Chat_Core
 {
@@ -16,7 +17,7 @@ namespace Chat_Core
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertificatesCallback);
         }
 
-        public static string Send(JsonPacket packet)
+        public static JsonPacket Send(JsonPacket packet)
         {
             if (!s_Initialized)
                 Initialize();
@@ -43,15 +44,14 @@ namespace Chat_Core
                     string response = streamReader.ReadToEnd();
 
                     json_response = response.ToString();
+                    return JsonPacket.Deserialize(response);
 
                 }
             }
 
-            return json_response;
-
         }
 
-        public static bool AcceptAllCertificatesCallback(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
+        private static bool AcceptAllCertificatesCallback(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
             return true;
         }

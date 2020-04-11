@@ -15,12 +15,12 @@ $api = new API();
 
 $json = json_decode($requestInput, true);
 
-if($json['REQUEST_TYPE'] == REQUEST_GET_CLIENT_IDENTIFIER) {
+if($json['TYPE'] == REQUEST_GET_CLIENT_IDENTIFIER) {
 
     echo $api->getClientIdentifier();
 
 }
-else if($json['REQUEST_TYPE'] == REQUEST_CLIENT_CREATE_CHAT) {
+else if($json['TYPE'] == REQUEST_CLIENT_CREATE_CHAT) {
 
     echo $api->clientCreateChat($json);
 

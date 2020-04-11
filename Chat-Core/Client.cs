@@ -7,7 +7,6 @@ namespace Chat_Core
     public class Client
     {
         private string m_ID;
-        private string m_IPAddress;
         private string m_Username;
         private string m_Token;
 
@@ -15,7 +14,7 @@ namespace Chat_Core
         {
             JsonPacket packet = new JsonPacket(Constants.REQUEST_GET_CLIENT_IDENTIFIER);
 
-            Request.Send(packet);
+            JsonPacket response = Request.Send(packet);
 
         }
 
