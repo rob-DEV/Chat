@@ -11,9 +11,17 @@ namespace Chat_Core
         private string m_Username;
         private string m_Token;
 
-        public Client()
+        private Client()
         {
-            
+            JsonPacket packet = new JsonPacket(Constants.REQUEST_GET_CLIENT_IDENTIFIER);
+
+            Request.Send(packet);
+
+        }
+
+        public static Client Create()
+        {
+            return new Client();
         }
 
     }

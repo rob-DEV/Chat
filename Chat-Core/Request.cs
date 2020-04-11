@@ -4,7 +4,6 @@ using System.Net;
 using System.Text;
 using System.Diagnostics;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Chat_Core
 {
@@ -17,12 +16,12 @@ namespace Chat_Core
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertificatesCallback);
         }
 
-        public static string Send(Dictionary<string, string> data)
+        public static string Send(JsonPacket packet)
         {
             if (!s_Initialized)
                 Initialize();
 
-            string json_request = JsonConvert.SerializeObject(data);
+            string json_request = packet.Serialize();
             string json_response = string.Empty;
 
           

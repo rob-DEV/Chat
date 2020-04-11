@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
+using Chat_Core;
 
 namespace Chat_UI
 {
@@ -19,13 +19,11 @@ namespace Chat_UI
             InitializeComponent();
         }
 
-        private void txtTesting_Click(object sender, EventArgs e)
+        private void btnTesting_Click(object sender, EventArgs e)
         {
-            var dict = new Dictionary<string, string>();
-            dict.Add("client_pub_key", "3as1d5asd4fs35df4sd3f5s4df5s64fs6");
+            Client user = Client.Create();
 
-            Chat_Core.Request.Send(dict);
-            
+
         }
     }
 }
