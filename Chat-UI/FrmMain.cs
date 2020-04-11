@@ -23,6 +23,7 @@ namespace Chat_UI
         {
             Client user = Client.Create();
 
+            user.Save();
 
         }
     }

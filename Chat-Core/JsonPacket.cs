@@ -11,18 +11,18 @@ namespace Chat_Core
     public class JsonPacket
     {
         private string m_Type;
-        public Dictionary<string, string> m_Data { get; private set; }
+        public Dictionary<string, string> Data { get; private set; }
 
         public JsonPacket(string type)
         {
             m_Type = type;
-            m_Data = new Dictionary<string, string>();
+            Data = new Dictionary<string, string>();
         }
 
         public JsonPacket(string type, Dictionary<string, string> data)
         {
             m_Type = type;
-            m_Data = data;
+            Data = data;
         }
 
         public JsonPacket(Dictionary<string, string> data)
@@ -30,21 +30,20 @@ namespace Chat_Core
             if(data.ContainsKey("TYPE"))
                 m_Type = data["TYPE"];
 
-            m_Data = data;
+            Data = data;
         }
 
         public void Add(KeyValuePair<string, string> element)
         {
-            m_Data[element.Key] = element.Value;
+            Data[element.Key] = element.Value;
         }
-
 
         public string Serialize()
         {
-            if (!m_Data.ContainsKey("TYPE"))
-                m_Data["TYPE"] = m_Type;
+            if (!Data.ContainsKey("TYPE"))
+                Data["TYPE"] = m_Type;
 
-            return JsonConvert.SerializeObject(m_Data);
+            return JsonConvert.SerializeObject(Data);
 
         }
 
