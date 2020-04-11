@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat-UI", "Chat-UI\Chat-UI.csproj", "{851F847F-43B0-48E1-ACA2-DE4EC4FA4C43}"
+EndProject
+Project("{A0786B88-2ADB-4C21-ABE8-AA2D79766269}") = "Chat-ServerSide", "Chat-ServerSide\Chat-ServerSide.phpproj", "{87477143-156A-41EB-84A1-BBEE1902503F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat-Core", "Chat-Core\Chat-Core.csproj", "{020490DA-305F-4D09-8F9A-A1C679CAE5D5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{851F847F-43B0-48E1-ACA2-DE4EC4FA4C43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851F847F-43B0-48E1-ACA2-DE4EC4FA4C43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851F847F-43B0-48E1-ACA2-DE4EC4FA4C43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851F847F-43B0-48E1-ACA2-DE4EC4FA4C43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87477143-156A-41EB-84A1-BBEE1902503F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87477143-156A-41EB-84A1-BBEE1902503F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{020490DA-305F-4D09-8F9A-A1C679CAE5D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{020490DA-305F-4D09-8F9A-A1C679CAE5D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{020490DA-305F-4D09-8F9A-A1C679CAE5D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{020490DA-305F-4D09-8F9A-A1C679CAE5D5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E7D4893-9675-4F06-B7A5-C0C24AACC920}
+	EndGlobalSection
+EndGlobal
