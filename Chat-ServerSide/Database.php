@@ -103,7 +103,6 @@ class Database
             $sql .= "* FROM`".$table."` ";
         }
 
-
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $arr = $stmt->fetchAll(\PDO::FETCH_ASSOC);

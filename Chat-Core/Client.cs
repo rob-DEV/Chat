@@ -13,6 +13,8 @@ namespace Chat_Core
         public string ShortID { get; private set; }
         public string Token { get; private set; }
 
+        private static Client s_Instance = null;
+
         private Client()
         {
             JsonPacket packet = new JsonPacket(Constants.REQUEST_GET_CLIENT_IDENTIFIER);
@@ -51,9 +53,12 @@ namespace Chat_Core
 
         }
 
-        public static Client Create()
+        public static Client Get()
         {
-            return new Client();
+            if(s_Instance == null)
+                s_Instance = new Client();
+
+            return s_Instance;
         }
 
     }

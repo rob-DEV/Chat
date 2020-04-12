@@ -12,8 +12,11 @@ using Chat_Core;
 
 namespace Chat_UI
 {
+
     public partial class FrmMain : Form
     {
+        private Client m_Client = null;
+
         public FrmMain()
         {
             InitializeComponent();
@@ -21,9 +24,23 @@ namespace Chat_UI
 
         private void btnTesting_Click(object sender, EventArgs e)
         {
-            Client user = Client.Create();
+            m_Client = Client.Get();
 
-            user.Save();
+            Client.Get().Save();
+
+        }
+
+        private void btnCreateChat_Click(object sender, EventArgs e)
+        {
+            if (m_Client != null)
+            {
+                FrmChat chatWindow = new FrmChat();
+                chatWindow.Show();
+            }
+        }
+
+        private void btnJoinChat_Click(object sender, EventArgs e)
+        {
 
         }
     }

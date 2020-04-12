@@ -26,7 +26,7 @@ namespace Chat_Core
             string json_response = string.Empty;
 
           
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Config.HOST);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Constants.HOST);
 
             request.Method = "POST";
             request.ContentType = "application/json";

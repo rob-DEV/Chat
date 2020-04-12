@@ -33,9 +33,9 @@ namespace Chat_Core
             Data = data;
         }
 
-        public void Add(KeyValuePair<string, string> element)
+        public void Add(string key, string value)
         {
-            Data[element.Key] = element.Value;
+            Data[key] = value;
         }
 
         public string Serialize()
