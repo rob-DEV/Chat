@@ -27,16 +27,22 @@ else if($json['TYPE'] == REQUEST_CLIENT_CREATE_CHAT) {
     echo $api->clientCreateChat($json);
 
 }
+//REQUEST CLIENT JOIN CHAT
+else if($json['TYPE'] == REQUEST_CLIENT_JOIN_CHAT) {
+
+    echo $api->clientJoinChat($json);
+
+}
 //REQUEST CLIENT SEND MESSAGE TO CHAT
 else if($json['TYPE'] == REQUEST_CLIENT_SEND_CHAT_MESSAGE) {
 
     echo $api->sendMessage($json);
 
 }
-//REQUEST CLIENT CHECK CHAT FOR MESSAGES
-else if($json['TYPE'] == REQUEST_CLIENT_CREATE_CHAT) {
+//REQUEST CHAT CHECK FOR MESSAGES
+else if($json['TYPE'] == REQUEST_CHAT_CHECK_MESSAGE) {
 
-    echo $api->clientCreateChat($json);
+    echo $api->checkForMessages($json);
 
 }
 

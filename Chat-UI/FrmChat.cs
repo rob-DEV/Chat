@@ -16,11 +16,13 @@ namespace Chat_UI
     {
         Chat m_Chat = null;
 
-        public FrmChat()
+        public FrmChat(Chat chat)
         {
             InitializeComponent();
 
-            m_Chat = Chat.Create();
+            m_Chat = chat;
+
+            this.Text = string.Format("Chat : {0}", m_Chat.ShortID);
 
             MessageWatcher();
         }
@@ -31,8 +33,12 @@ namespace Chat_UI
             {
 
                 //check server for messages
-
-
+                m_Chat.CheckForMessages();
+                txtChatWindow.Text = "";
+                foreach (Chat_Core.Message message in m_Chat.Messages)
+                {
+                    txtChatWindow.Text += string.Format("{0}:\t{1}\r\n", message.Sender, message.Content);
+                }
                 await Task.Delay(500);
             }
         }
@@ -41,6 +47,11 @@ namespace Chat_UI
         {
             m_Chat.SendMessage(new Chat_Core.Message(Environment.MachineName, txtMessage.Text));
             txtMessage.Text = "";
+        }
+
+        private void btnCheckTest_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

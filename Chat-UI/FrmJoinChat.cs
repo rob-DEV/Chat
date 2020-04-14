@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Chat_Core;
+
 namespace Chat_UI
 {
     public partial class FrmJoinChat : Form
@@ -19,6 +21,11 @@ namespace Chat_UI
 
         private void btnSendJoinRequest_Click(object sender, EventArgs e)
         {
+            Chat chat = Chat.Join(txtChatID.Text, "");
+
+            FrmChat chatWindow = new FrmChat(chat);
+
+            chatWindow.ShowDialog();
 
         }
     }

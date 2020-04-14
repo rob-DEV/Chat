@@ -34,14 +34,16 @@ namespace Chat_UI
         {
             if (m_Client != null)
             {
-                FrmChat chatWindow = new FrmChat();
+                Chat chat = Chat.Create();
+                FrmChat chatWindow = new FrmChat(chat);
                 chatWindow.Show();
             }
         }
 
         private void btnJoinChat_Click(object sender, EventArgs e)
         {
-
+            FrmJoinChat joinChatWindow = new FrmJoinChat();
+            joinChatWindow.ShowDialog();
         }
     }
 }

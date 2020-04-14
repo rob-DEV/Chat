@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,20 @@ namespace Chat_Core
 {
     public class Message
     {
-        public string Sender { get; set; }
-        public string Content { get; set; }
+        [JsonProperty("unique_id")]
         public string UniqueID { get; set; }
+        [JsonProperty("message_sender")]
+        public string Sender { get; set; }
+        [JsonProperty("message_content")]
+        public string Content { get; set; }
+
+        [JsonConstructor]
+        public Message(string uid, string sender, string content)
+        {
+            this.UniqueID = uid;
+            this.Sender = sender;
+            this.Content = content;
+        }
 
         public Message(string sender, string content)
         {
@@ -18,11 +30,21 @@ namespace Chat_Core
             Content = content;
         }
 
-        public Message(string sender, string content, string uniqueID)
+        public override bool Equals(object obj)
         {
-            Sender = sender;
-            Content = content;
-            UniqueID = uniqueID;
+            if(obj == null)
+            {
+                return false;
+            }
+
+            if (this.GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.UniqueID == ((Message)(obj)).UniqueID;
+
         }
+
     }
 }

@@ -31,6 +31,7 @@
             this.txtChatWindow = new System.Windows.Forms.TextBox();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.btnSendMessage = new System.Windows.Forms.Button();
+            this.btnCheckTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtChatWindow
@@ -59,11 +60,22 @@
             this.btnSendMessage.UseVisualStyleBackColor = true;
             this.btnSendMessage.Click += new System.EventHandler(this.btnSendMessage_Click);
             // 
+            // btnCheckTest
+            // 
+            this.btnCheckTest.Location = new System.Drawing.Point(497, 415);
+            this.btnCheckTest.Name = "btnCheckTest";
+            this.btnCheckTest.Size = new System.Drawing.Size(182, 23);
+            this.btnCheckTest.TabIndex = 3;
+            this.btnCheckTest.Text = "Check";
+            this.btnCheckTest.UseVisualStyleBackColor = true;
+            this.btnCheckTest.Click += new System.EventHandler(this.btnCheckTest_Click);
+            // 
             // FrmChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCheckTest);
             this.Controls.Add(this.btnSendMessage);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.txtChatWindow);
@@ -80,5 +92,6 @@
         private System.Windows.Forms.TextBox txtChatWindow;
         private System.Windows.Forms.TextBox txtMessage;
         private System.Windows.Forms.Button btnSendMessage;
+        private System.Windows.Forms.Button btnCheckTest;
     }
 }
