@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,6 +17,16 @@ namespace Chat_UI
     {
         Chat m_Chat = null;
 
+        public FrmChat()
+        {
+            InitializeComponent();
+
+            m_Chat = Chat.Create();
+
+            this.Text = string.Format("Chat : {0}", m_Chat.ShortID);
+
+        }
+
         public FrmChat(Chat chat)
         {
             InitializeComponent();
@@ -24,34 +35,50 @@ namespace Chat_UI
 
             this.Text = string.Format("Chat : {0}", m_Chat.ShortID);
 
+        }
+
+        private void FrmChat_Load(object sender, EventArgs e)
+        {
             MessageWatcher();
         }
 
-        private async void MessageWatcher()
+        private Task<string> Poll()
         {
-            while(true)
+            Task<string> pollMessagesTask = Task.Run(() =>
             {
-
+                string result = string.Empty;
+                Thread.Sleep(200);
                 //check server for messages
                 m_Chat.CheckForMessages();
                 txtChatWindow.Text = "";
                 foreach (Chat_Core.Message message in m_Chat.Messages)
                 {
-                    txtChatWindow.Text += string.Format("{0}:\t{1}\r\n", message.Sender, message.Content);
+                    result += string.Format("{0}:\t{1}\r\n", message.Sender, message.Content);
                 }
-                await Task.Delay(500);
+
+                return result;
+            });
+
+            return pollMessagesTask;
+        }
+
+        private async void MessageWatcher()
+        {
+            while(true)
+            {        
+                string result = await Poll();
+
+                txtChatWindow.Text = result;
+
             }
+
         }
 
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
-            m_Chat.SendMessage(new Chat_Core.Message(Environment.MachineName, txtMessage.Text));
+            Client.Get().SendMessage(new Chat_Core.Message(Environment.MachineName, txtMessage.Text), m_Chat);
             txtMessage.Text = "";
         }
 
-        private void btnCheckTest_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -18,7 +18,7 @@ $json = json_decode($requestInput, true);
 //REQUEST CLIENT ID
 if($json['TYPE'] == REQUEST_GET_CLIENT_IDENTIFIER) {
 
-    echo $api->getClientIdentifier();
+    echo $api->getClientIdentifier($json);
 
 }
 //REQUEST CLIENT CREATE CHAT
@@ -31,6 +31,11 @@ else if($json['TYPE'] == REQUEST_CLIENT_CREATE_CHAT) {
 else if($json['TYPE'] == REQUEST_CLIENT_JOIN_CHAT) {
 
     echo $api->clientJoinChat($json);
+
+}
+else if($json['TYPE'] == REQUEST_CHAT_GET_CONNECTED_CLIENTS) {
+
+    echo $api->chatGetConnectedClients($json);
 
 }
 //REQUEST CLIENT SEND MESSAGE TO CHAT

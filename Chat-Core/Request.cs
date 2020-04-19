@@ -1,10 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Text;
-using System.Diagnostics;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+
 
 namespace Chat_Core
 {
@@ -14,6 +11,7 @@ namespace Chat_Core
 
         private static void Initialize()
         {
+            //ssl backdoor
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertificatesCallback);
         }
 
@@ -23,9 +21,7 @@ namespace Chat_Core
                 Initialize();
 
             string json_request = packet.Serialize();
-            string json_response = string.Empty;
 
-          
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Constants.HOST);
 
             request.Method = "POST";
@@ -42,9 +38,7 @@ namespace Chat_Core
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
                     string response = streamReader.ReadToEnd();
-
-                    json_response = response.ToString();
-                    return JsonPacket.Deserialize(response);
+                    return JsonPacket.Deserialize(response.ToString());
 
                 }
             }

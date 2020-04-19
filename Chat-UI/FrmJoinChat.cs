@@ -21,7 +21,7 @@ namespace Chat_UI
 
         private void btnSendJoinRequest_Click(object sender, EventArgs e)
         {
-            Chat chat = Chat.Join(txtChatID.Text, "");
+            Chat chat = Chat.Join(txtChatID.Text, txtChatPassword.Text);
 
             FrmChat chatWindow = new FrmChat(chat);
 

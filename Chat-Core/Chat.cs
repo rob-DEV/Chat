@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Chat_Core
 {
@@ -12,13 +12,17 @@ namespace Chat_Core
 
         public string UniqueID { get; private set; }
         public string ShortID { get; private set; }
+        public string Password { get; private set; }
 
         private Chat()
         {
+            Password = "ABCD";
+
             JsonPacket packet = new JsonPacket(Constants.REQUEST_CLIENT_CREATE_CHAT);
             packet.Add("CLIENT_UNIQUE_ID", Client.Get().UniqueID);
             packet.Add("CLIENT_TOKEN", Client.Get().Token);
-            
+            packet.Add("CHAT_PASSWORD", Password);
+
             JsonPacket response = Request.Send(packet);
             UniqueID = response.Data["CHAT_UNIQUE_ID"];
             ShortID = response.Data["CHAT_SHORT_ID"];
@@ -32,7 +36,7 @@ namespace Chat_Core
             packet.Add("CLIENT_UNIQUE_ID", Client.Get().UniqueID);
             packet.Add("CLIENT_TOKEN", Client.Get().Token);
             packet.Add("CHAT_SHORT_ID", chatShortID);
-            packet.Add("CHAT_PASSWORD", Client.Get().Token);
+            packet.Add("CHAT_PASSWORD", password);
 
             JsonPacket response = Request.Send(packet);
             UniqueID = response.Data["CHAT_UNIQUE_ID"];
@@ -41,17 +45,19 @@ namespace Chat_Core
             Messages = new List<Message>();
         }
 
-        public void SendMessage(Message message)
+        public List<ConnectedClient> GetConnectedClients()
         {
-            JsonPacket packet = new JsonPacket(Constants.REQUEST_CLIENT_SEND_CHAT_MESSAGE);
+            JsonPacket packet = new JsonPacket(Constants.REQUEST_CHAT_GET_CONNECTED_CLIENTS);
             packet.Add("CLIENT_UNIQUE_ID", Client.Get().UniqueID);
             packet.Add("CLIENT_TOKEN", Client.Get().Token);
             packet.Add("CHAT_UNIQUE_ID", this.UniqueID);
-            packet.Add("MESSAGE_SENDER", message.Sender);
-            packet.Add("MESSAGE_CONTENT", message.Content);
 
             JsonPacket response = Request.Send(packet);
-            //check response for errors
+            string connectedClientJSON = response.Data["CONNECTED_CLIENTS"];
+
+            List<ConnectedClient> connectedClients = JsonConvert.DeserializeObject<List<ConnectedClient>>(connectedClientJSON);
+
+            return connectedClients;
         }
 
         public void CheckForMessages()
@@ -65,12 +71,16 @@ namespace Chat_Core
 
             string messagesJSON = response.Data["MESSAGES"];
 
-            List<Message> messages = JsonConvert.DeserializeObject<List<Message>>(messagesJSON);
+            List<ConnectedClientEncryptedMessage> messages = JsonConvert.DeserializeObject<List<ConnectedClientEncryptedMessage>>(messagesJSON);
 
-            foreach(Message message in messages)
+            if (messages.Count > 0)
             {
-                if(!Messages.Any(k => k.UniqueID == message.UniqueID))
-                    Messages.Add(message);
+                foreach (var message in messages)
+                {
+                    Message msg = Message.FromXML(Cryptor.Decrypt(message.EncryptedMessage, Client.Get().CryptographicKeyPair));
+                    if (!Messages.Any(k => k.UniqueID == msg.UniqueID))
+                        Messages.Add(msg);
+                }
             }
         }
 

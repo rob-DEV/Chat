@@ -17,6 +17,7 @@ namespace Chat_Core
         public static readonly string REQUEST_CLIENT_JOIN_CHAT = "CLIENT_JOIN_CHAT";
         public static readonly string REQUEST_CLIENT_SEND_CHAT_MESSAGE = "CLIENT_CHAT_SEND_MESSAGE";
         public static readonly string REQUEST_CHAT_CHECK_MESSAGE = "CHAT_CHECK_MESSAGE";
+        public static readonly string REQUEST_CHAT_GET_CONNECTED_CLIENTS = "CHAT_GET_CONNECTED_CLIENTS";
 
 
         ///RESPONSES

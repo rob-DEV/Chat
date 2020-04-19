@@ -26,16 +26,15 @@ namespace Chat_UI
         {
             m_Client = Client.Get();
 
-            Client.Get().Save();
+            FileIO.Save(m_Client);
 
         }
 
         private void btnCreateChat_Click(object sender, EventArgs e)
         {
             if (m_Client != null)
-            {
-                Chat chat = Chat.Create();
-                FrmChat chatWindow = new FrmChat(chat);
+            {             
+                FrmChat chatWindow = new FrmChat();
                 chatWindow.Show();
             }
         }
@@ -44,6 +43,10 @@ namespace Chat_UI
         {
             FrmJoinChat joinChatWindow = new FrmJoinChat();
             joinChatWindow.ShowDialog();
+        }
+
+        private void btnGenerateRSA_Click(object sender, EventArgs e)
+        {
         }
     }
 }
