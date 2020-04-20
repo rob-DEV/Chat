@@ -151,7 +151,7 @@ class API
 
         foreach($clientMessages as $message) {
 
-            $this->database->insert('message', ['unique_client_id', 'unique_chat_id', 'message_content'], [$message['unique_client_id'], $message['unique_chat_id'], $message['message_content']]);
+            $this->database->insert('message', ['unique_client_id', 'unique_chat_id','crypt_aes_key','crypt_aes_iv', 'message_content'], [$message['unique_client_id'], $message['unique_chat_id'], $message['crypt_aes_key'], $message['crypt_aes_iv'],$message['message_content']]);
 
 
         }
@@ -176,7 +176,7 @@ class API
             return json_encode($responseArray);
         }
 
-        $result = $this->database->select('message', ['unique_client_id', 'unique_chat_id', 'message_content'], [['unique_client_id', '=', $uniqueClientID],['unique_chat_id', '=', $uniqueChatID]]);
+        $result = $this->database->select('message', ['unique_client_id', 'unique_chat_id','crypt_aes_key','crypt_aes_iv', 'message_content'], [['unique_client_id', '=', $uniqueClientID],['unique_chat_id', '=', $uniqueChatID]]);
 
         
         $responseArray = ['TYPE' => RESPONSE_CHAT_CHECK_MESSAGE, 'MESSAGES' => json_encode($result, true)];

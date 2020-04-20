@@ -35,12 +35,6 @@ namespace Chat_Core
 
         public void SendMessage(Message message, Chat chat)
         {
-
-            //TODO: loop through the chats ConnectedClients
-            //encrypt message with their public key
-            //bundle all into one request
-            //send to server
-
             
             //convert message to XML
             string messageXml = Message.ToXML(message);
@@ -50,8 +44,15 @@ namespace Chat_Core
 
             foreach(ConnectedClient client in chat.GetConnectedClients())
             {
-                string clientEncryptedMessage = Cryptor.Encrypt(messageXml, client.PublicKey);
-                clientEncryptedMessages.Add(new ConnectedClientEncryptedMessage(client.UniqueID, chat.UniqueID, clientEncryptedMessage));
+                string key = "";
+                string IV = "";
+
+                string clientEncryptedMessage = Cryptor.AesEncrypt(messageXml, ref key, ref IV);
+                string encryptedKey = Cryptor.RsaEncrypt(key, client.PublicKey);
+                string encryptedIV = Cryptor.RsaEncrypt(IV, client.PublicKey);
+
+
+                clientEncryptedMessages.Add(new ConnectedClientEncryptedMessage(client.UniqueID, chat.UniqueID, encryptedKey, encryptedIV, clientEncryptedMessage));
 
             }
 

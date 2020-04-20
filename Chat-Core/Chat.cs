@@ -77,7 +77,12 @@ namespace Chat_Core
             {
                 foreach (var message in messages)
                 {
-                    Message msg = Message.FromXML(Cryptor.Decrypt(message.EncryptedMessage, Client.Get().CryptographicKeyPair));
+
+                    string decryptedKey = Cryptor.RsaDecrypt(message.EncryptedAESKey, Client.Get().CryptographicKeyPair);
+                    string decryptedIV = Cryptor.RsaDecrypt(message.EncryptedAESIV, Client.Get().CryptographicKeyPair);
+
+
+                    Message msg = Message.FromXML(Cryptor.AesDecrypt(message.EncryptedMessage, decryptedKey, decryptedIV));
                     if (!Messages.Any(k => k.UniqueID == msg.UniqueID))
                         Messages.Add(msg);
                 }
