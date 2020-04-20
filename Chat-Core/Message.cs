@@ -21,6 +21,14 @@ namespace Chat_Core
         [JsonProperty("message_timestamp")]
         public int TimeStamp { get; set; }
 
+        public Message()
+        {
+            this.UniqueID = string.Empty;
+            this.Sender = string.Empty;
+            this.Content = string.Empty;
+            this.TimeStamp = 0;
+        }
+
         [JsonConstructor]
         public Message(string uid, string sender, string content, int timestamp)
         {
@@ -45,44 +53,13 @@ namespace Chat_Core
 
         public static string ToXML(Message message)
         {
-            XmlDocument xmlDocument = new XmlDocument();
-            XmlNode xmlDeclarationNode = xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null);
-            xmlDocument.AppendChild(xmlDeclarationNode);
-
-            XmlNode xmlClientNode = xmlDocument.CreateElement("MessageDetails");
-            xmlDocument.AppendChild(xmlClientNode);
-
-            XmlNode xmlUniqueIDNode = xmlDocument.CreateElement("UniqueID");
-            xmlUniqueIDNode.AppendChild(xmlDocument.CreateTextNode(message.UniqueID));
-            xmlClientNode.AppendChild(xmlUniqueIDNode);
-
-            XmlNode xmlSenderNode = xmlDocument.CreateElement("Sender");
-            xmlSenderNode.AppendChild(xmlDocument.CreateTextNode(message.Sender));
-            xmlClientNode.AppendChild(xmlSenderNode);
-
-            XmlNode xmlContentNode = xmlDocument.CreateElement("Content");
-            xmlContentNode.AppendChild(xmlDocument.CreateTextNode(message.Content));
-            xmlClientNode.AppendChild(xmlContentNode);
-
-            XmlNode xmlTimestampNode = xmlDocument.CreateElement("Timestamp");
-            xmlTimestampNode.AppendChild(xmlDocument.CreateTextNode(message.TimeStamp.ToString()));
-            xmlClientNode.AppendChild(xmlTimestampNode);
-
-            string xml = xmlDocument.OuterXml;
+            string xml = FileIO.SerializeToXML<Message>(message);
             return xml;
         }
 
         public static Message FromXML(string messageXML)
         {
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(messageXML);
-
-            string uniqueID = xmlDocument.GetElementsByTagName("UniqueID")[0].InnerXml;
-            string sender = xmlDocument.GetElementsByTagName("Sender")[0].InnerXml;
-            string content = xmlDocument.GetElementsByTagName("Content")[0].InnerXml;
-            int timestamp = Convert.ToInt32(xmlDocument.GetElementsByTagName("Timestamp")[0].InnerXml);
-
-            return new Message(uniqueID, sender, content, timestamp);
+            return FileIO.DeserializeFromXML<Message>(messageXML);
         }
 
     }

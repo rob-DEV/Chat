@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace Chat_Core
 {
@@ -38,6 +40,53 @@ namespace Chat_Core
         public static void Save(Chat chat)
         {
 
+        }
+
+        public static string SerializeToXML<T>(T obj)
+        {
+            if(obj == null)
+            {
+                return "";
+            }
+
+            try
+            {
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                var stringWriter = new StringWriter();
+                using (var writer = XmlWriter.Create(stringWriter))
+                {
+                    xmlSerializer.Serialize(writer, obj);
+                    return stringWriter.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred", ex);
+            }
+        }
+
+        public static T DeserializeFromXML<T>(string xmlData)
+        {
+            if(xmlData.Length < 10)
+            {
+
+                return default(T);
+
+            }
+
+            try
+            {
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                var stringReader = new StreamReader(new MemoryStream(Encoding.Default.GetBytes(xmlData)));
+
+                T obj = (T)xmlSerializer.Deserialize(stringReader);
+
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred", ex);
+            }
         }
 
     }

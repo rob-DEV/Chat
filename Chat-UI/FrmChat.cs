@@ -17,19 +17,10 @@ namespace Chat_UI
     {
         Chat m_Chat = null;
 
-        public FrmChat()
-        {
-            InitializeComponent();
-
-            m_Chat = Chat.Create();
-
-            this.Text = string.Format("Chat : {0}", m_Chat.ShortID);
-
-        }
-
         public FrmChat(Chat chat)
         {
             InitializeComponent();
+            this.CenterToScreen();
 
             m_Chat = chat;
 
@@ -67,7 +58,6 @@ namespace Chat_UI
             while(true)
             {        
                 string result = await Poll();
-
                 txtChatWindow.Text = result;
 
             }
@@ -76,8 +66,11 @@ namespace Chat_UI
 
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
-            Client.Get().SendMessage(new Chat_Core.Message(Environment.MachineName, txtMessage.Text), m_Chat);
-            txtMessage.Text = "";
+            if (txtMessage.Text.Length > 0)
+            {
+                m_Chat.SendMessage(new Chat_Core.Message(Environment.MachineName, txtMessage.Text));
+                txtMessage.Text = "";
+            }
         }
 
     }

@@ -20,23 +20,17 @@ namespace Chat_UI
         public FrmMain()
         {
             InitializeComponent();
-        }
+            this.CenterToScreen();
 
-        private void btnTesting_Click(object sender, EventArgs e)
-        {
+            //generate a client and save details in xml
             m_Client = Client.Get();
-
-            FileIO.Save(m_Client);
 
         }
 
         private void btnCreateChat_Click(object sender, EventArgs e)
         {
-            if (m_Client != null)
-            {             
-                FrmChat chatWindow = new FrmChat();
-                chatWindow.Show();
-            }
+            FrmCreateChat createChatWindow = new FrmCreateChat();
+            createChatWindow.ShowDialog();
         }
 
         private void btnJoinChat_Click(object sender, EventArgs e)
@@ -45,8 +39,5 @@ namespace Chat_UI
             joinChatWindow.ShowDialog();
         }
 
-        private void btnGenerateRSA_Click(object sender, EventArgs e)
-        {
-        }
     }
 }

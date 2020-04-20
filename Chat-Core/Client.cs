@@ -17,6 +17,9 @@ namespace Chat_Core
 
         private static Client s_Instance = null;
 
+        /// <summary>
+        /// Constructs an instance of the user Client saving the details on disk
+        /// </summary>
         private Client()
         {
             CryptographicKeyPair = new KeyPair();
@@ -30,48 +33,14 @@ namespace Chat_Core
             ShortID = response.Data["CLIENT_SHORT_ID"];
             Token = response.Data["CLIENT_TOKEN"];
 
-
+            FileIO.Save(this);
         }
 
-        public void SendMessage(Message message, Chat chat)
-        {
-            
-            //convert message to XML
-            string messageXml = Message.ToXML(message);
-            List<ConnectedClientEncryptedMessage> clientEncryptedMessages = new List<ConnectedClientEncryptedMessage>();
 
-
-
-            foreach(ConnectedClient client in chat.GetConnectedClients())
-            {
-                string key = "";
-                string IV = "";
-
-                string clientEncryptedMessage = Cryptor.AesEncrypt(messageXml, ref key, ref IV);
-                string encryptedKey = Cryptor.RsaEncrypt(key, client.PublicKey);
-                string encryptedIV = Cryptor.RsaEncrypt(IV, client.PublicKey);
-
-
-                clientEncryptedMessages.Add(new ConnectedClientEncryptedMessage(client.UniqueID, chat.UniqueID, encryptedKey, encryptedIV, clientEncryptedMessage));
-
-            }
-
-
-
-
-            JsonPacket packet = new JsonPacket(Constants.REQUEST_CLIENT_SEND_CHAT_MESSAGE);
-            packet.Add("CLIENT_UNIQUE_ID", Client.Get().UniqueID);
-            packet.Add("CLIENT_TOKEN", Client.Get().Token);
-            packet.Add("CHAT_UNIQUE_ID", chat.UniqueID);
-
-            //attach client encryptedMessages
-            packet.Add("CHAT_CLIENT_MESSAGES", JsonConvert.SerializeObject(clientEncryptedMessages));
-
-
-            JsonPacket response = Request.Send(packet);
-            //check response for errors
-        }
-
+        /// <summary>
+        /// Returns the singleton Client instance, representing the current client running the chat program
+        /// </summary>
+        /// <returns>Client singleton instance</returns>
         public static Client Get()
         {
             if(s_Instance == null)

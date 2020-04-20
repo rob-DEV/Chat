@@ -47,6 +47,7 @@
     <Compile Include="Chat.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="ConnectedClient.cs" />
+    <Compile Include="ConnectedClientEncryptedMessage.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Cryptor.cs" />
     <Compile Include="FileIO.cs" />

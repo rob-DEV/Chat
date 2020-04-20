@@ -31,7 +31,6 @@
             this.txtChatWindow = new System.Windows.Forms.TextBox();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.btnSendMessage = new System.Windows.Forms.Button();
-            this.txtCheckMessage = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtChatWindow
@@ -60,25 +59,16 @@
             this.btnSendMessage.UseVisualStyleBackColor = true;
             this.btnSendMessage.Click += new System.EventHandler(this.btnSendMessage_Click);
             // 
-            // txtCheckMessage
-            // 
-            this.txtCheckMessage.Location = new System.Drawing.Point(508, 415);
-            this.txtCheckMessage.Name = "txtCheckMessage";
-            this.txtCheckMessage.Size = new System.Drawing.Size(182, 23);
-            this.txtCheckMessage.TabIndex = 3;
-            this.txtCheckMessage.Text = "Check";
-            this.txtCheckMessage.UseVisualStyleBackColor = true;
-            // 
             // FrmChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.txtCheckMessage);
             this.Controls.Add(this.btnSendMessage);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.txtChatWindow);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FrmChat";
             this.Text = "FrmChat";
             this.Load += new System.EventHandler(this.FrmChat_Load);
@@ -92,6 +82,5 @@
         private System.Windows.Forms.TextBox txtChatWindow;
         private System.Windows.Forms.TextBox txtMessage;
         private System.Windows.Forms.Button btnSendMessage;
-        private System.Windows.Forms.Button txtCheckMessage;
     }
 }

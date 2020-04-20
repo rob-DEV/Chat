@@ -52,6 +52,12 @@
     <Compile Include="FrmChat.Designer.cs">
       <DependentUpon>FrmChat.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmCreateChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCreateChat.Designer.cs">
+      <DependentUpon>FrmCreateChat.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmJoinChat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmChat.resx">
       <DependentUpon>FrmChat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCreateChat.resx">
+      <DependentUpon>FrmCreateChat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmJoinChat.resx">
       <DependentUpon>FrmJoinChat.cs</DependentUpon>
